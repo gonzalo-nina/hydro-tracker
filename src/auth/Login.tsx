@@ -3,17 +3,20 @@ import styled from 'styled-components';
 import { storage, StorageKeys } from '../utils/storage';
 
 const LoginContainer = styled.div`
-  padding: 1rem;
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
   max-width: 400px;
-  margin: 1rem auto;
-  box-sizing: border-box;
+  margin: 2rem auto;
 `;
 
 const Input = styled.input`
+  padding: 0.5rem;
+  margin: 1rem 0;
   width: 100%;
-  max-width: 300px;
-  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 `;
 
 const Button = styled.button`
@@ -27,12 +30,6 @@ const Button = styled.button`
   &:hover {
     background: #535bf2;
   }
-`;
-
-const Form = styled.form`
-  width: 100%;
-  max-width: 300px;
-  margin: 0 auto;
 `;
 
 interface LoginProps {
@@ -63,7 +60,7 @@ export function Login({ onLogin }: LoginProps) {
   return (
     <LoginContainer>
       <h1>HydroTracker</h1>
-      <Form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <Input
           type="text"
           placeholder="Ingresa tu nombre"
@@ -72,7 +69,7 @@ export function Login({ onLogin }: LoginProps) {
           required
         />
         <Button type="submit">Comenzar</Button>
-      </Form>
+      </form>
     </LoginContainer>
   );
 }
