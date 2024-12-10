@@ -7,17 +7,24 @@ import { WeatherPanel } from '../WeatherPanel';
 
 const DashboardContainer = styled.div`
   padding: 1rem;
+  width: 100%;
   max-width: 800px;
-  margin: 80px auto 0; // Añadir margen superior para la navegación
-  text-align: center;
+  margin: 70px auto 0;
+  box-sizing: border-box;
+  
+  @media (max-width: 600px) {
+    margin-top: 120px;
+  }
 `;
 
 const ProgressContainer = styled.div`
   background: #e0e0e0;
   border-radius: 10px;
   height: 20px;
-  margin: 1rem 0;
+  margin: 1rem auto;
   overflow: hidden;
+  max-width: 600px;
+  width: 100%;
 `;
 
 const ProgressBar = styled.div<{ width: number }>`
@@ -28,16 +35,25 @@ const ProgressBar = styled.div<{ width: number }>`
 `;
 
 const ProgressSection = styled.div`
-  background: rgba(255, 255, 255, 0.05);
-  padding: 2rem;
-  border-radius: 8px;
-  margin: 2rem 0;
+  width: 100%;
+  padding: 1rem;
+  margin: 1rem 0;
+  box-sizing: border-box;
+
+  h3 {
+    font-size: 1.2rem;
+    @media (max-width: 400px) {
+      font-size: 1rem;
+    }
+  }
 `;
 
 const AddWaterForm = styled.form`
   display: flex;
-  gap: 1rem;
-  margin: 2rem 0;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin: 1rem 0;
 `;
 
 const Button = styled.button`
@@ -54,20 +70,19 @@ const Button = styled.button`
 `;
 
 const WaterInput = styled.input`
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
   width: 100px;
-  text-align: center;
-  font-size: 1.1rem;
+  @media (max-width: 400px) {
+    width: 80px;
+  }
 `;
 
-// Añadir nuevo estilo para el contenedor de botones
 const QuickAddContainer = styled.div`
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.5rem;
   margin: 1rem 0;
+  width: 100%;
+  max-width: 400px;
 `;
 
 const QuickAddButton = styled(Button)`
@@ -78,7 +93,6 @@ const QuickAddButton = styled(Button)`
   }
 `;
 
-// Añadir estilos para el mensaje
 const MotivationalMessage = styled.p`
   color: #646cff;
   font-weight: 500;
@@ -87,7 +101,6 @@ const MotivationalMessage = styled.p`
   font-style: italic;
 `;
 
-// src/dashboard/Dashboard.tsx - Actualizar las funciones que usan los logs
 export function Dashboard() {
   const navigate = useNavigate();
   const [logs, setLogs] = useState<WaterLog[]>([]);
@@ -209,9 +222,6 @@ export function Dashboard() {
         <Button type="submit">Añadir Agua</Button>
       </AddWaterForm>
 
-      <ProgressSection>
-        <WeatherPanel />
-      </ProgressSection>
     </DashboardContainer>
   );
 }

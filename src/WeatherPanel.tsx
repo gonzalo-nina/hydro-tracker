@@ -6,11 +6,15 @@ import { WeatherData } from './types/weather';
 const WeatherContainer = styled.div`
   padding: 1rem;
   width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  box-sizing: border-box;
 `;
 
 const Form = styled.form`
   display: flex;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   justify-content: center;
   align-items: center;
   margin-bottom: 1rem;
@@ -44,13 +48,14 @@ const Button = styled.button`
 `;
 
 const WeatherInfo = styled.div`
+  width: 100%;
+  max-width: 300px;
   margin: 1rem auto;
-  padding: 1.5rem;
+  padding: 1rem;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   text-align: center;
-  max-width: 300px;
 
   h3 {
     margin: 0 0 1rem 0;

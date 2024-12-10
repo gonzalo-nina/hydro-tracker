@@ -8,7 +8,13 @@ export const StorageKeys = {
 export const storage = {
   getUser: (): User | null => {
     const data = localStorage.getItem(StorageKeys.USER);
-    return data ? JSON.parse(data) : null;
+    if (!data) return null;
+    const user = JSON.parse(data);
+    // Ensure existing users are never marked as new
+    if (user && !user.isNewUser) {
+      return { ...user, isNewUser: false };
+    }
+    return user;
   },
   
   setUser: (user: User): void => {

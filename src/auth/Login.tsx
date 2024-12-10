@@ -1,22 +1,19 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { storage } from '../utils/storage';
+import { storage, StorageKeys } from '../utils/storage';
 
 const LoginContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem;
+  padding: 1rem;
+  width: 100%;
   max-width: 400px;
-  margin: 2rem auto;
+  margin: 1rem auto;
+  box-sizing: border-box;
 `;
 
 const Input = styled.input`
-  padding: 0.5rem;
-  margin: 1rem 0;
   width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  max-width: 300px;
+  box-sizing: border-box;
 `;
 
 const Button = styled.button`
@@ -32,6 +29,12 @@ const Button = styled.button`
   }
 `;
 
+const Form = styled.form`
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+`;
+
 interface LoginProps {
   onLogin: (user: { username: string; dailyGoal: number }) => void;
 }
@@ -42,11 +45,16 @@ export function Login({ onLogin }: LoginProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (username.trim()) {
-      const user = { 
-        username, 
+      // Check if this username already exists in storage
+      const existingUserData = localStorage.getItem(StorageKeys.LOGS_PREFIX + username);
+      
+      const user = {
+        username,
         dailyGoal: 2000,
-        isNewUser: true 
+        // Only set as new user if no previous data exists
+        isNewUser: !existingUserData
       };
+      
       storage.setUser(user);
       onLogin(user);
     }
@@ -55,7 +63,7 @@ export function Login({ onLogin }: LoginProps) {
   return (
     <LoginContainer>
       <h1>HydroTracker</h1>
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <Input
           type="text"
           placeholder="Ingresa tu nombre"
@@ -64,7 +72,7 @@ export function Login({ onLogin }: LoginProps) {
           required
         />
         <Button type="submit">Comenzar</Button>
-      </form>
+      </Form>
     </LoginContainer>
   );
 }

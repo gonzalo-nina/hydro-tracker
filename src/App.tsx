@@ -7,6 +7,7 @@ import { storage } from './utils/storage';
 import { User } from './types';
 import { Navigation } from './components/common/Navigation';
 import './App.css';
+import { Weather } from './pages/Weather';
 
 // src/App.tsx - Actualizar para manejar la redirección
 function App() {
@@ -25,11 +26,6 @@ function App() {
   const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     if (!user) return <Navigate to="/login" />;
     
-    // Redirigir usuarios nuevos a configuración
-    if (user.isNewUser && window.location.pathname !== '/configuracion') {
-      return <Navigate to="/configuracion" />;
-    }
-
     return (
       <>
         <Navigation onLogout={handleLogout} />
@@ -47,6 +43,11 @@ function App() {
         <Route path="/panel" element={
           <ProtectedRoute>
             <Dashboard />
+          </ProtectedRoute>
+        } />
+        <Route path="/clima" element={
+          <ProtectedRoute>
+            <Weather />
           </ProtectedRoute>
         } />
         <Route path="/configuracion" element={
