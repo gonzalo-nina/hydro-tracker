@@ -42,9 +42,9 @@ interface SettingsProps {
 export function Settings({ onUpdateUser }: SettingsProps) {
   const navigate = useNavigate();
   const [dailyGoal, setDailyGoal] = useState(2000);
+  const user = storage.getUser(); // Obtener el usuario actual
 
   useEffect(() => {
-    const user = storage.getUser();
     if (user) {
       setDailyGoal(user.dailyGoal);
     }
@@ -52,7 +52,6 @@ export function Settings({ onUpdateUser }: SettingsProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const user = storage.getUser();
     if (user) {
       const updatedUser = {
         ...user,
@@ -66,6 +65,7 @@ export function Settings({ onUpdateUser }: SettingsProps) {
 
   return (
     <SettingsContainer>
+      <h2>¡Hola, {user?.username}!</h2>
       <h1>Configuración</h1>
       <Form onSubmit={handleSubmit}>
         <label>

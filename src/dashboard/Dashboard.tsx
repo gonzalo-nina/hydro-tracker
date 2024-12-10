@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { storage } from '../utils/storage';
 import { WaterLog } from '../types/index';
+import { WeatherPanel } from '../WeatherPanel';
 
 const DashboardContainer = styled.div`
   padding: 1rem;
@@ -192,6 +193,11 @@ export function Dashboard() {
             {getMotivationalMessage()}
           </MotivationalMessage>
         )}
+      </ProgressSection>
+
+      {/* Agregar el panel del clima */}
+      <ProgressSection>
+        <WeatherPanel />
       </ProgressSection>
 
       <QuickAddContainer>
