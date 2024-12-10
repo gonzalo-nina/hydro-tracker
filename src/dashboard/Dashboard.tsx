@@ -68,6 +68,31 @@ const WaterInput = styled.input`
   font-size: 1.1rem;
 `;
 
+// Añadir nuevo estilo para el contenedor de botones
+const QuickAddContainer = styled.div`
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin: 1rem 0;
+`;
+
+const QuickAddButton = styled(Button)`
+  background: #535bf2;
+  
+  &:hover {
+    background: #4347d9;
+  }
+`;
+
+// Añadir estilos para el mensaje
+const MotivationalMessage = styled.p`
+  color: #646cff;
+  font-weight: 500;
+  margin: 1rem 0;
+  font-size: 1.1rem;
+  font-style: italic;
+`;
+
 // src/dashboard/Dashboard.tsx - Actualizar las funciones que usan los logs
 export function Dashboard() {
   const navigate = useNavigate();
@@ -105,7 +130,50 @@ export function Dashboard() {
     storage.setLogs(user.username, updatedLogs);
   };
 
+  const handleQuickAdd = (amount: number) => {
+    if (!user) return;
+
+    const newLog: WaterLog = {
+      amount,
+      timestamp: Date.now(),
+      id: crypto.randomUUID()
+    };
+
+    const updatedLogs = [...logs, newLog];
+    setLogs(updatedLogs);
+    storage.setLogs(user.username, updatedLogs);
+  };
+
   const progress = (getTodayTotal() / (user?.dailyGoal || 2000)) * 100;
+
+  const getMotivationalMessage = () => {
+    const total = getTodayTotal();
+    const goal = user?.dailyGoal || 2000;
+    const remaining = goal - total;
+
+    if (total === 0) {
+      return "¡Comienza tu día con un vaso de agua!";
+    }
+    if (total === 250) {
+      return "¡Excelente inicio! Mantén ese ritmo 💧";
+    }
+    if (total === goal) {
+      return "¡Felicitaciones! Has alcanzado tu meta diaria! 🎉";
+    }
+    if (total >= goal) {
+      return "¡Increíble! Has superado tu meta diaria! 🌟";
+    }
+    if (total === goal / 2) {
+      return "¡Vas por la mitad! ¡Sigue así! 💪";
+    }
+    if (remaining === 500) {
+      return "¡Solo te faltan 500ml para tu meta! 🎯";
+    }
+    if (remaining === 250) {
+      return "¡Un vaso más y llegas a tu meta! 🚰";
+    }
+    return null;
+  };
 
   return (
     <DashboardContainer>
@@ -119,7 +187,21 @@ export function Dashboard() {
         <p style={{ fontSize: '1.2rem', marginTop: '1rem' }}>
           {getTodayTotal()}ml de {user?.dailyGoal}ml
         </p>
+        {getMotivationalMessage() && (
+          <MotivationalMessage>
+            {getMotivationalMessage()}
+          </MotivationalMessage>
+        )}
       </ProgressSection>
+
+      <QuickAddContainer>
+        <QuickAddButton onClick={() => handleQuickAdd(250)}>
+          +250ml
+        </QuickAddButton>
+        <QuickAddButton onClick={() => handleQuickAdd(500)}>
+          +500ml
+        </QuickAddButton>
+      </QuickAddContainer>
 
       <AddWaterForm onSubmit={handleAddWater}>
         <WaterInput
