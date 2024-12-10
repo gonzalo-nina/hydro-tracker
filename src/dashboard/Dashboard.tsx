@@ -12,13 +12,6 @@ const DashboardContainer = styled.div`
   text-align: center;
 `;
 
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-`;
-
 const ProgressContainer = styled.div`
   background: #e0e0e0;
   border-radius: 10px;
@@ -195,11 +188,6 @@ export function Dashboard() {
         )}
       </ProgressSection>
 
-      {/* Agregar el panel del clima */}
-      <ProgressSection>
-        <WeatherPanel />
-      </ProgressSection>
-
       <QuickAddContainer>
         <QuickAddButton onClick={() => handleQuickAdd(250)}>
           +250ml
@@ -220,6 +208,10 @@ export function Dashboard() {
         />
         <Button type="submit">Añadir Agua</Button>
       </AddWaterForm>
+
+      <ProgressSection>
+        <WeatherPanel />
+      </ProgressSection>
     </DashboardContainer>
   );
 }

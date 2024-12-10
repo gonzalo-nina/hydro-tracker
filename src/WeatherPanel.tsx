@@ -44,20 +44,17 @@ const Button = styled.button`
 `;
 
 const WeatherInfo = styled.div`
-  margin-top: 1rem;
+  margin: 1rem auto;
   padding: 1.5rem;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  text-align: center;
+  max-width: 300px;
 
   h3 {
     margin: 0 0 1rem 0;
     color: #646cff;
-  }
-
-  p {
-    margin: 0.5rem 0;
-    font-size: 1.1rem;
   }
 `;
 
@@ -65,6 +62,7 @@ const ErrorMessage = styled.p`
   color: #ff6b6b;
   margin: 1rem 0;
   font-size: 0.9rem;
+  text-align: center;
 `;
 
 const Temperature = styled.p`
